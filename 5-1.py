@@ -11,9 +11,9 @@ def wheretoCharge(l, loc, charge, n = 0):
             min = n
             return
     for i in range(loc+1, loc+charge+1): #cannot reach to destination yet
-        if n > min:          #non-promising-> return
+        if n >= min:          #non-promising-> return
             return 
-        while i <= N-1:
+        if i <= N-1:
             wheretoCharge(l, i, charge - (i - loc) + l[i-1], n+1)
 
 '''

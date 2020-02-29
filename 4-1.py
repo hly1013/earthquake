@@ -8,7 +8,7 @@ def merge(left, right):
         if left[0] <= right[0]:
             result.append(left.pop(0))
         else:
-            result.append(right.pop())
+            result.append(right.pop(0))
 
     if len(left) > 0:
         result.extend(left)
@@ -37,12 +37,11 @@ T = int(input())
 for test_case in range(1, T+1):
     n = int(input()) 
 
-    case = 0        #두번째 출력값: N//2번째 원소와 오른쪽 원소가 먼저 복사되는 경우의 수
+    case = 0        #두번째 출력값: 오른쪽 원소가 먼저 복사되는 경우의 수
 
     # n개의 경우에 대해 a 저장
     a = list(input().split())
     a = list(map(int, a))
 
     a = merge_sort(a)
-    print(a)
     print('#%d %d %d' %(test_case, a[n//2], case))
