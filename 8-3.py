@@ -8,7 +8,6 @@ N (문자열의 길이 이내)
 문자열 (길이는 4글자 이상 1000글자 이내)
 '''
 #실행시간 어떻게 더 줄이지?
-#try-except 구문 활용?
 
 T = int(input())
 for test_case in range(1, T + 1):
