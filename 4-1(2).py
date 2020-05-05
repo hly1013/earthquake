@@ -43,12 +43,13 @@ def merge(left, mid, right):
      #그러나 while loop를 나왔으므로 l, r 중 하나는 다 탐색한 것
 
     if i <= mid: #l을 다 탐색하지 못한 경우
-        cnt += 1
+        print("1: ")
+        print(result)
         result[idx:right+1] = L[i:mid+1]
+        print("2: ")
+        print(result)
     if j <= right:
         result[idx:right+1] = L[j:right+1]
-
-    print(result)
 
     for i in range(left, right+1):
         L[i] = result[i]
@@ -58,6 +59,7 @@ def merge(left, mid, right):
 merge sort function
 '''
 def merge_sort(left, right):
+    global L, cnt
     if left < right:
         mid = (left+right)//2
 
@@ -87,4 +89,3 @@ for test_case in range(1, T+1):
     merge_sort(l, r) # merge(L[left:right//2], L[right//2+1:right])
 
     print('#%d %d %d' %(test_case, L[N//2], cnt))
-    print(result)
