@@ -23,74 +23,49 @@ L[N//2] 원소를 출력
 merge function
 '''
 #항상 l이 r보다 길거나 같다
-def merge(l, r):
-    global cnt
+def merge(left, mid, right):
+    global cnt, L, N, result
 
-    result = []
-    '''
-    if len(l) == 1 and len(r) == 1:
-        if l[0] < r[0]:
-            result = l.append(r[0])
-        else:
-            result = r.append(l[0])
-        
-        return result
-    '''
-    
-    i = 0
-    j = 0
-    while i < len(l) and j < len(r):
-        if l[i] < r[j]:
-            result.append(l[i])
+    i = left
+    j = mid+1
+    idx = left
+    while i <= mid and j <= right:
+        if L[i] < L[j]:
+            result[idx] = L[i]
             i += 1
+            idx += 1
         else:
-            result.append(r[j])
+            result[idx] = L[j]
             j += 1
+            idx += 1
      #l과 r의 원소를 다 정렬하여 result로 냈다면 i == len(l), j == len(r)   
      # i < len(l) 혹은 j < len(r)라는 것은 다 정렬하지 못했다는 뜻
      #그러나 while loop를 나왔으므로 l, r 중 하나는 다 탐색한 것
 
-    if i < len(l): #l을 다 탐색하지 못한 경우
+    if i <= mid: #l을 다 탐색하지 못한 경우
         cnt += 1
-        result.append(l[i:len(l)-1])
-    if j < len(r):
-        result.append(r[j:len(r)-1])
+        result[idx:right+1] = L[i:mid+1]
+    if j <= right:
+        result[idx:right+1] = L[j:right+1]
 
-    return result
+    print(result)
 
-
-
-'''
-divide function
-'''
-def divide(left, right):
-    global L
-
-    if not(left < right):    # 종결 조건
-        return [].append(L[left]) # left == right
-
-    # idx: left ~ right//2, right//2+1 ~ right
-    l = divide(left, right//2)
-    r = divide(right//2+1, right)
-
-    return merge(l, r)
-
+    for i in range(left, right+1):
+        L[i] = result[i]
 
 
 '''
 merge sort function
 '''
-def merge_sort():
-    global L
+def merge_sort(left, right):
+    if left < right:
+        mid = (left+right)//2
 
-    # idx: 0 ~ len(lst)//2, len(lst)//2+1 ~ len(lst)-1
-    left = 0
-    right = len(L)-1
-    
-    divide(left, right) # 양 끝 인덱스 포함 구간
-    
+        merge_sort(left, mid)
+        merge_sort(mid+1, right)
 
-
+        merge(left, mid, right)
+  
 '''
 main function
 '''
@@ -103,5 +78,13 @@ for test_case in range(1, T+1):
     L = list(map(int, L))
 
     cnt = 0
-    L = merge_sort()
+    result = [0]*N
+
+    # idx: 0 ~ len(lst)//2, len(lst)//2+1 ~ len(lst)-1
+    l = 0
+    r = N - 1
+
+    merge_sort(l, r) # merge(L[left:right//2], L[right//2+1:right])
+
     print('#%d %d %d' %(test_case, L[N//2], cnt))
+    print(result)
