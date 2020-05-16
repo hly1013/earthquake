@@ -16,7 +16,9 @@ get_min(cost)
 '''
 import math
 def get_min(cost):
-    min = 22275 #maximum cost = 15*15*99 = 22,275 (init of 'min')
+    min = 0
+    for i in range(0, n):
+        min += cost[i][i]
     global n
 
     #idx array, l
